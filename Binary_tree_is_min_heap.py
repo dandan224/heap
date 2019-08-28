@@ -23,7 +23,7 @@ class Solution(object):
     if not root.right:
       return root.val <= root.left.val
     else:
-      if root.left.val <= root.val and root.right.val <= root.val:
+      if root.left.val >= root.val and root.right.val >= root.val:
         return self.isheapS(root.left) and self.isheapS(root.right)
       return False   
 
@@ -49,4 +49,38 @@ class Solution(object):
       else:
         flag = True
     return True
+   
+   #Solution #2:
+class Solution2(object):
+  def isMinHeap(self, root):
+    """
+    input: TreeNode root
+    return: boolean
+    """
+    # write your solution here
+   return self.isCompleteBT_1(root)
+  
+   def isCompleteBT_1(self, root):
+    if not root:
+      return True
+    queue = []
+    # when a non ful node seen return True
+    flag = False
+    queue.append(root)
+    while queue:
+      node = queue.pop(0)
+      if node.left:
+        if flag == True or node.left.val < node.val:
+          return False
+        queue.append(node.left)
+      else:
+        flag = True
+      if node.right:
+        if flag == True or node.right.val < node.val:
+          return False
+        queue.append(node.right)
+      else:
+        flag = True
+    return True
+   
     
